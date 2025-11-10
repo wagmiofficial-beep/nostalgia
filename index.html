@@ -100,12 +100,6 @@
       background: #111827;
     }
 
-    .address {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      word-break: break-all;
-    }
-
     .small {
       font-size: 0.85rem;
       color: #9ca3af;
@@ -185,7 +179,7 @@
       </p>
       <div>
         <button class="btn-primary" id="connectBtn">Connect Wallet</button>
-        <button class="btn-secondary" id="networkInfoBtn">Base Sepolia Testnet</button>
+        <button class="btn-secondary" id="networkInfoBtn">Base Mainnet</button>
       </div>
       <p id="accountInfo" class="small"></p>
     </section>
@@ -196,11 +190,23 @@
       <ul>
         <li><strong>Token Name:</strong> Nostalgia ($NOST)</li>
         <li><strong>Total Supply:</strong> 1,000,000,000 $NOST</li>
-        <li><strong>Network:</strong> Base (testnet for now)</li>
-        <li><strong>Rate:</strong> 1 ETH = 6,000,000 $NOST</li>
+        <li><strong>Network:</strong> Base</li>
+        <li><strong>Rate:</strong> 1 ETH = 20,000,000 $NOST</li>
         <li><strong>Min Contribution:</strong> 0.0001 ETH</li>
         <li><strong>Max Contribution:</strong> 1 ETH per wallet</li>
         <li><strong>Fee:</strong> 5% to builder, 95% to treasury</li>
+        <li><strong>Token Contract:</strong>
+          <!--  BASE MAINNET -->
+          <a href="https://basescan.org/token/0x3ad479478e67990cA70c904B4E4639c764918dFd" target="_blank">
+            0xYOUR_TOKEN_CA
+          </a>
+        </li>
+        <li><strong>Selfdrop Contract:</strong>
+          <!--  BASE MAINNET -->
+          <a href="https://basescan.org/address/0x973E86405E0aAe67fFCac61BDF915E517965Be6b" target="_blank">
+            0xYOUR_SELFDROP_CA
+          </a>
+        </li>
       </ul>
     </section>
 
@@ -252,6 +258,30 @@
       </p>
     </section>
 
+    <!-- TOKENOMICS -->
+    <section class="card">
+      <h2>Tokenomics</h2>
+      <p>
+        $NOST is designed as a simple, transparent and nostalgic community token. No VC, no pre-sale, no complex vesting.
+        Everything flows on-chain and can be verified by anyone.
+      </p>
+      <ul>
+        <li><strong>Total Supply:</strong> 1,000,000,000 $NOST</li>
+        <li><strong>Distribution:</strong> 100% allocated to the selfdrop contract</li>
+        <li><strong>Access:</strong> Anyone can join by sending ETH to the selfdrop, within min/max limits</li>
+        <li><strong>Fee Structure:</strong> 5% of each contribution goes to the builder, 95% goes to the treasury</li>
+        <li><strong>Treasury Usage:</strong> Liquidity, community experiments, and nostalgic onchain moments</li>
+        <li><strong>Max Contribution:</strong> 1 ETH per wallet (anti-whale, more people can join)</li>
+      </ul>
+      <p class="small">
+        Everything is on-chain and auditable.<br />
+        <!-- Link token ke BaseScan -->
+        <a href="https://basescan.org/token/0xYOUR_TOKEN_CA" target="_blank">
+          View $NOST on BaseScan
+        </a>
+      </p>
+    </section>
+
     <footer>
       <p>Built with ❤️ on Base</p>
       <p>© 2025 Nostalgia Selfdrop | All rights reserved</p>
@@ -261,11 +291,13 @@
   <!-- ethers.js v6 -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.11.1/dist/ethers.umd.min.js"></script>
   <script>
-    // ======= CONFIG – GANTI INI DENGAN ALAMAT SELFDROP KAMU =======
-    const SELF_DROP_ADDRESS = "0x973E86405E0aAe67fFCac61BDF915E517965Be6b"; // contoh: "0x973E86...."
-    const EXPECTED_CHAIN_ID = "0x14a34"; // Base Sepolia. Nanti kalau mainnet: 0x2105
+    // ======= CONFIG MAINNET =======
+    // Base mainnet chainId = 0x2105
+    const EXPECTED_CHAIN_ID = "0x2105";
 
-    // ABI minimal yang kita butuhkan
+    // BASE MAINNET
+    const SELF_DROP_ADDRESS = "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
+
     const SELF_DROP_ABI = [
       "function buyTokens() payable",
       "function totalTokensSold() view returns (uint256)",
@@ -301,7 +333,7 @@
       provider = new ethers.BrowserProvider(window.ethereum);
       const networkChainId = await provider.send("eth_chainId", []);
       if (networkChainId !== EXPECTED_CHAIN_ID) {
-        accountInfo.textContent = "Wrong network. Please switch to Base Sepolia.";
+        accountInfo.textContent = "Wrong network. Please switch to Base.";
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
@@ -360,7 +392,7 @@
         ethRaisedText.textContent = `Total ETH raised: ${ethRaised} ETH`;
         progressFill.style.width = `${Math.min(soldPercentValue, 100)}%`;
 
-        // update estimation if user filled input
+        // update estimation if user already typed something
         if (ethInput.value) {
           const ethAmount = Number(ethInput.value);
           if (!isNaN(ethAmount) && ethAmount > 0) {
@@ -446,7 +478,6 @@
     connectBtn.addEventListener("click", connectWallet);
     buyBtn.addEventListener("click", handleBuy);
 
-    // Inisialisasi hanya untuk baca progress (tanpa connect)
     window.addEventListener("load", initProvider);
   </script>
 </body>
