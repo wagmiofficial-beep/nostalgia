@@ -1,0 +1,31 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "baseBuilder": {
+    "ownerAddress": "0xbddc1b15d0d53c9a214955371d97f2fb827f33b0"
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "Nostalgia Selfdrop",
+    "homeUrl": "https://nostalgiatoken.vercel.app",
+    "iconUrl": "https://nostalgiatoken.vercel.app/icon.png",
+    "splashImageUrl": "https://nostalgiatoken.vercel.app/og.png",
+    "splashBackgroundColor": "#020617",
+    "subtitle": "Nostalgic selfdrop on Base",
+    "description": "Send ETH, receive $NOST. A simple community selfdrop inspired by the 2017–2019 era.",
+    "screenshotUrls": [
+      "https://nostalgiatoken.vercel.app/og.png"
+    ],
+    "primaryCategory": "social",
+    "tags": ["nostalgia", "selfdrop", "base"],
+    "heroImageUrl": "https://nostalgiatoken.vercel.app/og.png",
+    "tagline": "Mint a memory, not a profit.",
+    "ogTitle": "Nostalgia Selfdrop",
+    "ogDescription": "A nostalgic selfdrop on Base. Send ETH, receive $NOST.",
+    "ogImageUrl": "https://nostalgiatoken.vercel.app/og.png",
+    "noindex": false
+  }
+}
