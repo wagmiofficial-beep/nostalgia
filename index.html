@@ -5,393 +5,212 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nostalgia Selfdrop</title>
 
-  <!-- Farcaster / Base MiniApp -->
+  <!-- Mini App Metadata for Base / Farcaster (optional, can adjust URL later) -->
   <meta name="fc:miniapp" content='{
     "version": "next",
-    "imageUrl": "https://nostalgiatoken.vercel.app/og.png",
     "button": {
-      "title": "Open Nostalgia",
+      "title": "Join Nostalgia Selfdrop",
       "action": {
         "type": "launch_miniapp",
         "name": "Nostalgia Selfdrop",
-        "url": "https://nostalgiatoken.vercel.app"
+        "url": "https://nostalgia-selfdrop.vercel.app"
       }
     }
   }' />
 
-  <meta name="description" content="Nostalgia Selfdrop — send ETH, receive $NOST. A tribute to the 2017–2019 selfdrop era on Base." />
-  <meta property="og:title" content="Nostalgia Selfdrop" />
-  <meta property="og:description" content="Send ETH, receive $NOST. Mint a memory, not a profit." />
-  <meta property="og:image" content="https://nostalgiatoken.vercel.app/og.png" />
-  <meta property="og:url" content="https://nostalgiatoken.vercel.app" />
-  <meta property="og:type" content="website" />
-  <link rel="icon" type="image/png" href="https://nostalgiatoken.vercel.app/icon.png" />
-
   <style>
-    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    body{
-      margin:0;
-      padding:0;
-      min-height:100vh;
-      background:radial-gradient(circle at top,#0a0f1c,#020617 70%);
-      color:#e5e7eb;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
+    /* ===== GLOBAL ===== */
+    * {
+      box-sizing: border-box;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f9fafb;
     }
-    main{
-      max-width:720px;
-      width:100%;
-      margin:24px auto 40px;
-      padding:0 16px;
+
+    body {
+      background: radial-gradient(circle at top, #0a0f1c, #020617 80%);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
     }
-    .card{
-      background:rgba(2,6,23,0.9);
-      border-radius:18px;
-      padding:20px 20px 22px;
-      box-shadow:0 18px 60px rgba(15,23,42,0.9);
-      border:1px solid rgba(148,163,184,0.22);
-      margin-bottom:18px;
-      backdrop-filter:blur(22px);
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    h1,h2{margin:0 0 10px}
-    h1{font-size:24px;font-weight:700;color:#f9fafb}
-    h2{font-size:18px;font-weight:600;color:#e5e7eb}
-    ul{margin:8px 0 0;padding-left:18px;font-size:14px;color:#cbd5f5}
-    .muted{font-size:13px;color:#9ca3af}
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 10px;
-      border-radius:999px;
-      background:rgba(37,99,235,0.1);
-      color:#bfdbfe;
-      font-size:11px;
-      margin-bottom:10px;
+
+    h1, h2 {
+      color: #f9fafb;
+      margin-top: 0;
     }
-    .pill-dot{
-      width:7px;height:7px;border-radius:999px;
-      background:radial-gradient(circle,#4ade80,#22c55e);
-      box-shadow:0 0 8px #22c55e;
+
+    .card {
+      background: rgba(2, 6, 23, 0.9);
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.05);
     }
-    .row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      font-size:13px;
-      color:#d1d5db;
+
+    ul, ol {
+      margin: 0;
+      padding-left: 18px;
     }
-    .row > div{flex:1 1 150px}
-    .label{color:#9ca3af;font-size:12px}
-    .value{font-weight:600;color:#e5e7eb;margin-top:2px}
-    .progress-wrap{margin-top:8px}
-    .progress-bar{
-      width:100%;
-      height:8px;
-      border-radius:999px;
-      background:#020617;
-      overflow:hidden;
-      border:1px solid rgba(55,65,81,0.8);
+
+    strong {
+      color: #38bdf8;
     }
-    .progress-fill{
-      height:100%;
-      width:0%;
-      border-radius:999px;
-      background:linear-gradient(90deg,#38bdf8,#2563eb);
-      box-shadow:0 0 20px rgba(56,189,248,0.7);
-      transition:width 0.4s ease-out;
+
+    a {
+      color: #38bdf8;
+      text-decoration: none;
     }
-    .progress-text{
-      margin-top:6px;
-      font-size:12px;
-      color:#9ca3af;
-      display:flex;
-      justify-content:space-between;
+
+    hr {
+      border: none;
+      border-top: 1px dashed #1f2937;
+      margin: 12px 0;
     }
-    .input-row{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-top:14px;
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      margin-bottom: 24px;
     }
-    input[type="number"]{
-      flex:1;
-      background:#020617;
-      border-radius:999px;
-      border:1px solid rgba(55,65,81,0.9);
-      padding:10px 12px;
-      color:#e5e7eb;
-      font-size:14px;
-      outline:none;
+
+    .hero h1 {
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
     }
-    input[type="number"]::placeholder{color:#6b7280}
-    button{
-      border:none;
-      cursor:pointer;
-      border-radius:999px;
-      padding:10px 18px;
-      font-size:14px;
-      font-weight:600;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
+
+    .hero .tagline {
+      color: #9ca3af;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
     }
-    #connectBtn{
-      background:rgba(37,99,235,0.1);
-      color:#bfdbfe;
-      border:1px solid rgba(59,130,246,0.8);
-      margin-bottom:10px;
+
+    .btn-primary {
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      border: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 600;
+      color: #020617;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+      transition: all 0.2s ease;
     }
-    #buyBtn{
-      background:linear-gradient(135deg,#38bdf8,#2563eb);
-      color:#eff6ff;
-      box-shadow:0 10px 30px rgba(37,99,235,0.7);
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
     }
-    #buyBtn:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-      box-shadow:none;
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      margin-top: 30px;
     }
-    .status{margin-top:8px;font-size:12px;min-height:16px}
-    .status.ok{color:#4ade80}
-    .status.err{color:#f97373}
-    .mono{font-family:"JetBrains Mono","Fira Code",monospace;font-size:12px}
-    @media (max-width:600px){
-      main{margin-top:18px}
-      .card{padding:18px 16px 20px}
+
+    footer a {
+      color: #38bdf8;
+    }
+
+    footer p {
+      margin: 6px 0;
+    }
+
+    .small {
+      font-size: 0.85rem;
+      color: #9ca3af;
     }
   </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
+
 <body>
   <main>
-    <div class="card">
-      <div class="pill">
-        <span class="pill-dot"></span>
-        Running on Base (mainnet)
-      </div>
+    <!-- HERO SECTION -->
+    <section class="hero">
       <h1>Nostalgia Selfdrop</h1>
-      <p class="muted">
-        Send ETH, receive <span class="mono">$NOST</span> instantly. A tribute to the 2017–2019 selfdrop era.
+      <p class="tagline">
+        A revival of the 2017–2019 onchain era.<br />
+        Mint a memory, not a profit.
       </p>
-      <button id="connectBtn">Connect wallet</button>
+      <button class="btn-primary" id="connectBtn">Connect Wallet & Join</button>
+    </section>
 
-      <div class="row" style="margin-top:6px">
-        <div>
-          <div class="label">Token</div>
-          <div class="value mono">$NOST (1,000,000,000)</div>
-        </div>
-        <div>
-          <div class="label">Rate</div>
-          <div class="value">1 ETH = 6,000,000 $NOST</div>
-        </div>
-      </div>
-      <div class="row" style="margin-top:4px">
-        <div>
-          <div class="label">Min Contribution</div>
-          <div class="value">0.0001 ETH</div>
-        </div>
-        <div>
-          <div class="label">Max Contribution</div>
-          <div class="value">1 ETH / wallet</div>
-        </div>
-        <div>
-          <div class="label">Fee</div>
-          <div class="value">5% builder, 95% treasury</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Sale Progress</h2>
-      <div class="progress-wrap">
-        <div class="progress-bar">
-          <div id="progressFill" class="progress-fill"></div>
-        </div>
-        <div class="progress-text">
-          <span id="soldPercent">Sold: loading…</span>
-          <span id="soldNumbers" class="mono"></span>
-        </div>
-        <div class="muted" id="ethRaisedText">Total ETH raised: loading…</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Join the Selfdrop</h2>
-      <p class="muted">
-        Choose your contribution between 0.0001 and 1 ETH.  
-        You’ll receive <span class="mono">$NOST</span> instantly to your address.
-      </p>
-
-      <div class="input-row">
-        <input id="ethInput" type="number" step="0.0001" min="0.0001" placeholder="0.0001" />
-        <span>ETH</span>
-        <button id="buyBtn" disabled>Buy NOST</button>
-      </div>
-      <div class="muted" id="estimateText">Estimated: – NOST</div>
-      <div id="txStatus" class="status"></div>
-    </div>
-
-    <div class="card">
-      <h2>Tokenomics</h2>
+    <!-- TOKEN INFO -->
+    <section class="token-info card">
+      <h2>Token Details</h2>
       <ul>
-        <li><b>60%</b> – Selfdrop allocation (this sale)</li>
-        <li><b>20%</b> – Treasury / Liquidity</li>
-        <li><b>10%</b> – Team &amp; Creator</li>
-        <li><b>10%</b> – Community &amp; Rewards</li>
+        <li><strong>Token Name:</strong> Nostalgia ($NOST)</li>
+        <li><strong>Total Supply:</strong> 1,000,000,000 $NOST</li>
+        <li><strong>Network:</strong> Base Mainnet</li>
+        <li><strong>Rate:</strong> 1 ETH = 6,000,000 $NOST</li>
+        <li><strong>Min Contribution:</strong> 0.0001 ETH</li>
+        <li><strong>Max Contribution:</strong> 1 ETH</li>
+        <li><strong>Fee:</strong> 5% to builder, 95% to treasury</li>
       </ul>
-      <p class="muted" style="margin-top:8px">
-        This is a nostalgia experiment. There is no roadmap, no promises, no utility beyond
-        the shared memory of sending ETH and minting a moment on Base.
+    </section>
+
+    <!-- SALE PROGRESS (UI READY, DATA LATER FROM CONTRACT) -->
+    <section class="card">
+      <h2>Sale Progress</h2>
+      <p id="soldPercent">Sold: 0.00% of allocation</p>
+      <p id="tokensSold">Tokens sold: 0 NOST</p>
+      <p id="ethRaised">Total ETH raised: 0 ETH</p>
+      <p class="small">
+        These numbers will update from the onchain contract once the selfdrop is live.
       </p>
-    </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about card">
+      <h2>About Nostalgia Selfdrop</h2>
+      <p>
+        Nostalgia Selfdrop is a tribute to the golden age of crypto — the years 2017 to 2019 —
+        when sending ETH to a contract wasn’t about profit, but curiosity.
+      </p>
+      <p>
+        Each $NOST token you receive is a memory minted on Base, a small reminder of the moment
+        when onchain felt magical for the first time.
+      </p>
+      <p>
+        This project revives that feeling — sending ETH, receiving tokens, and being part of a shared experiment again.
+      </p>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-to card">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Connect your wallet on Base Mainnet.</li>
+        <li>Enter your contribution (0.0001 – 1 ETH).</li>
+        <li>Confirm the transaction in your wallet.</li>
+        <li>Receive your $NOST instantly to your address.</li>
+      </ol>
+      <p class="small">
+        5% of each contribution supports the builder. 95% goes to the Nostalgia treasury.
+      </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Built with ❤️ on Base</p>
+      <p>© 2025 Nostalgia Selfdrop | All rights reserved</p>
+      <p><a href="https://base.org" target="_blank">Powered by Base</a></p>
+    </footer>
   </main>
 
   <script>
-    const SELF_DROP_ADDRESS = "0x973E86405E0aAe67fFCac61BDF915E517965Be6b";
-    const TOKENS_PER_ETH = 6000000; // 6M NOST per 1 ETH
-    const MAX_CONTRIB = 1;
-    const MIN_CONTRIB = 0.0001;
-    const BASE_CHAIN_ID = 8453;
-
-    const connectBtn = document.getElementById("connectBtn");
-    const buyBtn = document.getElementById("buyBtn");
-    const ethInput = document.getElementById("ethInput");
-    const txStatus = document.getElementById("txStatus");
-    const estimateText = document.getElementById("estimateText");
-    const progressFill = document.getElementById("progressFill");
-    const soldPercentEl = document.getElementById("soldPercent");
-    const soldNumbersEl = document.getElementById("soldNumbers");
-    const ethRaisedText = document.getElementById("ethRaisedText");
-
-    let provider, signer, selfdrop;
-
-    const SELF_DROP_ABI = [
-      "function buyTokens() external payable",
-      "function soldPercent() external view returns (uint256)",
-      "function totalTokensSold() external view returns (uint256)",
-      "function totalEthRaised() external view returns (uint256)",
-      "function saleCapTokens() external view returns (uint256)"
-    ];
-
-    function setStatus(msg, ok) {
-      txStatus.textContent = msg || "";
-      txStatus.className = "status " + (msg ? (ok ? "ok" : "err") : "");
-    }
-
-    async function ensureBaseNetwork() {
-      const net = await provider.getNetwork();
-      if (net.chainId !== BASE_CHAIN_ID) {
-        try {
-          await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: "0x" + BASE_CHAIN_ID.toString(16) }]
-          });
-        } catch (err) {
-          console.error(err);
-          throw new Error("Please switch to Base network.");
-        }
-      }
-    }
-
-    async function connectWallet() {
-      if (!window.ethereum) {
-        alert("No wallet found. Please open in Base / MetaMask.");
-        return;
-      }
-      try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await ensureBaseNetwork();
-        signer = provider.getSigner();
-        selfdrop = new ethers.Contract(SELF_DROP_ADDRESS, SELF_DROP_ABI, signer);
-        const addr = await signer.getAddress();
-        connectBtn.textContent = addr.slice(0, 6) + "..." + addr.slice(-4);
-        connectBtn.disabled = true;
-        buyBtn.disabled = false;
-        setStatus("");
-        refreshStats();
-      } catch (err) {
-        console.error(err);
-        setStatus(err.message || "Failed to connect wallet.", false);
-      }
-    }
-
-    async function refreshStats() {
-      if (!provider) {
-        provider = new ethers.providers.JsonRpcProvider("https://mainnet.base.org");
-        selfdrop = new ethers.Contract(SELF_DROP_ADDRESS, SELF_DROP_ABI, provider);
-      }
-      try {
-        const [percent, sold, raised, cap] = await Promise.all([
-          selfdrop.soldPercent(),
-          selfdrop.totalTokensSold(),
-          selfdrop.totalEthRaised(),
-          selfdrop.saleCapTokens()
-        ]);
-        const p = Number(percent.toString()) / 100; // assuming 2 decimals
-        const soldNum = Number(ethers.utils.formatUnits(sold, 0));
-        const capNum = Number(ethers.utils.formatUnits(cap, 0));
-        const raisedEth = Number(ethers.utils.formatEther(raised));
-        progressFill.style.width = Math.min(p, 100) + "%";
-        soldPercentEl.textContent = `Sold: ${p.toFixed(2)}% of allocation`;
-        soldNumbersEl.textContent = `${soldNum.toLocaleString()} / ${capNum.toLocaleString()} NOST`;
-        ethRaisedText.textContent = `Total ETH raised: ${raisedEth.toFixed(4)} ETH`;
-      } catch (err) {
-        console.error(err);
-        soldPercentEl.textContent = "Sold: loading…";
-        ethRaisedText.textContent = "Total ETH raised: loading…";
-      }
-    }
-
-    async function buy() {
-      const val = parseFloat(ethInput.value || "0");
-      if (isNaN(val) || val <= 0) {
-        setStatus("Enter a valid ETH amount.", false);
-        return;
-      }
-      if (val < MIN_CONTRIB || val > MAX_CONTRIB) {
-        setStatus(`Amount must be between ${MIN_CONTRIB} and ${MAX_CONTRIB} ETH.`, false);
-        return;
-      }
-      if (!signer || !selfdrop) {
-        setStatus("Connect wallet first.", false);
-        return;
-      }
-      try {
-        setStatus("Sending transaction…", true);
-        buyBtn.disabled = true;
-        const tx = await selfdrop.buyTokens({ value: ethers.utils.parseEther(String(val)) });
-        await tx.wait();
-        setStatus("Success! Tokens should now be in your wallet.", true);
-        ethInput.value = "";
-        estimateText.textContent = "Estimated: – NOST";
-        await refreshStats();
-      } catch (err) {
-        console.error(err);
-        setStatus(err.message || "Transaction failed or rejected.", false);
-      } finally {
-        buyBtn.disabled = false;
-      }
-    }
-
-    ethInput.addEventListener("input", () => {
-      const v = parseFloat(ethInput.value || "0");
-      if (!v || v <= 0) {
-        estimateText.textContent = "Estimated: – NOST";
-        return;
-      }
-      const est = v * TOKENS_PER_ETH;
-      estimateText.textContent = `Estimated: ~${est.toLocaleString()} NOST`;
+    // Placeholder for now – real wallet connect & contract integration will come later.
+    document.getElementById("connectBtn").addEventListener("click", () => {
+      alert("Wallet connection and selfdrop will be enabled after the contract is deployed. 🚀");
     });
-
-    connectBtn.addEventListener("click", connectWallet);
-    buyBtn.addEventListener("click", buy);
-
-    // initial stats (read-only)
-    refreshStats();
   </script>
 </body>
 </html>
